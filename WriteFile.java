@@ -1,4 +1,4 @@
-package CKPTDv5;
+package CKPTDv2;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
@@ -15,11 +15,14 @@ public class WriteFile {
 	
 	public WriteFile() {
 		super();
-		
+		for(int i = 0;i < 3;i++)
+		{
 			full.add("");
-		
+		}
+		for(int i = 0;i < 2;i++)
+		{
 			self.add("");
-	
+		}
 	}
 
 
@@ -61,22 +64,25 @@ public class WriteFile {
 		PrintWriter jMFile = openWrite();
 		
 		
-	
-			jMFile.println("-Full Service Registers "+"-");
+		for(int i = 0;i < f.size();i++) {
+			jMFile.println("-Full Register "+(i+1)+"-");
 			jMFile.println("CustID,arrivalTime,serviceTime,departuretime,waittime,Turn Around Time,Satisfaction,Line");
-			jMFile.println(f.get(0));
+			jMFile.println(f.get(i));
 			jMFile.println();
+		}
 		
-		
-		
+		for(int i = 0;i < s.size();i++) {
 			
-			jMFile.println("-SelfRegisters"+"-");
-			
+			jMFile.print("-Self Register ");
+			if(i == 0)
+				jMFile.println("A-");
+			else if(i == 1)
+				jMFile.println("B-");
 			
 			jMFile.println("CustID,arrivalTime,serviceTime,departuretime,waittime,Turn Around Time,Satisfaction,Line");
-			jMFile.println(s.get(0));
+			jMFile.println(s.get(i));
 			jMFile.println();
-		
+		}
 		
 		jMFile.close();
 
@@ -87,10 +93,8 @@ public class WriteFile {
 	public void picky(Customer c)
 	{
 		String temp = "";
-		boolean lineCheck=true;
-		Character  charCheck =c.getLine().charAt(0);
-		
-		if(Character.isDigit(charCheck)) {
+		if(c.getLine().equalsIgnoreCase("1"))
+		{
 			temp = full.get(0);
 			temp = temp + c.getId() + ",";
 			temp = temp + c.getArrivalTime() + ",";
@@ -101,9 +105,38 @@ public class WriteFile {
 			temp = temp + c.isSatisfied() + ",";
 			temp = temp + c.getLine() + "\n";
 			full.set(0, temp);
-			
 		}
-		else {
+		
+		else if(c.getLine().equalsIgnoreCase("2"))
+		{
+			temp = full.get(1);
+			temp = temp + c.getId() + ",";
+			temp = temp + c.getArrivalTime() + ",";
+			temp = temp + c.getServiceTime() + ",";
+			temp = temp + c.getLeaveTime() + ",";
+			temp = temp + c.getWaitTime() + ",";
+			temp = temp + c.getTurnAroundTime() + ",";
+			temp = temp + c.isSatisfied() + ",";
+			temp = temp + c.getLine() + "\n";
+			full.set(1, temp);
+		}
+		
+		else if(c.getLine().equalsIgnoreCase("3"))
+		{
+			temp = full.get(2);
+			temp = temp + c.getId() + ",";
+			temp = temp + c.getArrivalTime() + ",";
+			temp = temp + c.getServiceTime() + ",";
+			temp = temp + c.getLeaveTime() + ",";
+			temp = temp + c.getWaitTime() + ",";
+			temp = temp + c.getTurnAroundTime() + ",";
+			temp = temp + c.isSatisfied() + ",";
+			temp = temp + c.getLine() + "\n";
+			full.set(2, temp);
+		}
+		
+		else if(c.getLine().equalsIgnoreCase("A"))
+		{
 			temp = self.get(0);
 			temp = temp + c.getId() + ",";
 			temp = temp + c.getArrivalTime() + ",";
@@ -114,9 +147,21 @@ public class WriteFile {
 			temp = temp + c.isSatisfied() + ",";
 			temp = temp + c.getLine() + "\n";
 			self.set(0, temp);
-			
 		}
 		
+		else if(c.getLine().equalsIgnoreCase("B"))
+		{
+			temp = self.get(1);
+			temp = temp + c.getId() + ",";
+			temp = temp + c.getArrivalTime() + ",";
+			temp = temp + c.getServiceTime() + ",";
+			temp = temp + c.getLeaveTime() + ",";
+			temp = temp + c.getWaitTime() + ",";
+			temp = temp + c.getTurnAroundTime() + ",";
+			temp = temp + c.isSatisfied() + ",";
+			temp = temp + c.getLine() + "\n";
+			self.set(1, temp);
+		}
 	}
 	
 	

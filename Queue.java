@@ -1,6 +1,6 @@
 // Fig. 21.11: Queue.java
 // Queue uses class List.
-package CKPTDv5;
+package CKPTDv2;
 
 import java.util.NoSuchElementException;
 

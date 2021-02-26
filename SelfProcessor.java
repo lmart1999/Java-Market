@@ -1,4 +1,4 @@
-package CKPTDv5;
+package CKPTDv2;
 
 import java.util.ArrayList;
 
@@ -63,12 +63,7 @@ public class SelfProcessor {
 						timeout.constructDepartSelf(c);
 						String temp = outSelf.get(i);
 						outSelf.set(i, temp + c.toString() + "\n");
-						 String arTime = c.getArrivalTime()/60+" hrs "+c.getArrivalTime()%60+" mins";
-						 String serVTime = c.getServiceTime()/60+" hrs "+c.getServiceTime()%60+" mins";
-						 String leaveTime = c.getLeaveTime()/60+" hrs "+c.getLeaveTime()%60+" mins";
-						 String waitTime = c.getWaitTime()/60+" hrs "+c.getWaitTime()%60+" mins";
-						 String turnArTime = c.getTurnAroundTime()/60+" hrs "+c.getTurnAroundTime()%60+" mins";
-						 TableDataCustomer cd= new TableDataCustomer(c.getId(),arTime,waitTime,serVTime,c.getSatisfaction(),c.getLine(),leaveTime,turnArTime);
+						TableDataCustomer cd= new TableDataCustomer(c.getId(),c.getArrivalTime(),c.getWaitTime(),c.getServiceTime(),c.getSatisfaction(),c.getLine(),c.getLeaveTime(),c.getTurnAroundTime());
 						 oBCust.add(cd); 
 
 					}

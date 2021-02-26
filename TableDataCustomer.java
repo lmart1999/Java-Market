@@ -1,20 +1,20 @@
-package CKPTDv5;
+package CKPTDv2;
 public class TableDataCustomer implements Comparable<TableDataCustomer>{
 	private int custId;
-	private String arrivalTime;
-	private String waitTime;
-	private String serviceTime;
+	private int arrivalTime;
+	private int waitTime;
+	private int serviceTime;
 	private String satisfaction;
 	private String line;
-	private String leaveTime;
-	private String turnaroundTime;
+	private int leaveTime;
+	private int turnaroundTime;
 	
 	public TableDataCustomer() {
 		super();
 	}
 
-	public TableDataCustomer(int custId, String arrivalTime, String waitTime, String serviceTime, String satisfaction,
-			String line, String leaveTime, String turnaroundTime) {
+	public TableDataCustomer(int custId, int arrivalTime, int waitTime, int serviceTime, String satisfaction,
+			String line, int leaveTime, int turnaroundTime) {
 		super();
 		this.custId = custId;
 		this.arrivalTime = arrivalTime;
@@ -34,7 +34,29 @@ public class TableDataCustomer implements Comparable<TableDataCustomer>{
 		this.custId = custId;
 	}
 
-	
+	public int getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(int arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public int getWaitTime() {
+		return waitTime;
+	}
+
+	public void setWaitTime(int waitTime) {
+		this.waitTime = waitTime;
+	}
+
+	public int getServiceTime() {
+		return serviceTime;
+	}
+
+	public void setServiceTime(int serviceTime) {
+		this.serviceTime = serviceTime;
+	}
 
 	public String getSatisfaction() {
 		return satisfaction;
@@ -52,46 +74,19 @@ public class TableDataCustomer implements Comparable<TableDataCustomer>{
 		this.line = line;
 	}
 
-	
-	
-
-	public String getArrivalTime() {
-		return arrivalTime;
-	}
-
-	public void setArrivalTime(String arrivalTime) {
-		this.arrivalTime = arrivalTime;
-	}
-
-	public String getWaitTime() {
-		return waitTime;
-	}
-
-	public void setWaitTime(String waitTime) {
-		this.waitTime = waitTime;
-	}
-
-	public String getServiceTime() {
-		return serviceTime;
-	}
-
-	public void setServiceTime(String serviceTime) {
-		this.serviceTime = serviceTime;
-	}
-
-	public String getLeaveTime() {
+	public int getLeaveTime() {
 		return leaveTime;
 	}
 
-	public void setLeaveTime(String leaveTime) {
+	public void setLeaveTime(int leaveTime) {
 		this.leaveTime = leaveTime;
 	}
 
-	public String getTurnaroundTime() {
+	public int getTurnaroundTime() {
 		return turnaroundTime;
 	}
 
-	public void setTurnaroundTime(String turnaroundTime) {
+	public void setTurnaroundTime(int turnaroundTime) {
 		this.turnaroundTime = turnaroundTime;
 	}
 

@@ -1,6 +1,6 @@
 // Fig. 21.3: List.java
 // ListNode and List class declarations.
-package CKPTDv5;
+package CKPTDv2;
 
 import java.util.NoSuchElementException;
 

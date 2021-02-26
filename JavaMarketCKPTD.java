@@ -1,8 +1,9 @@
-package CKPTDv5;
+package CKPTDv2;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 //////////////////////////////////////////////
 //FX
@@ -42,17 +43,15 @@ public class JavaMarketCKPTD extends Application {
 	//////////////////////////////////////////////////////////////
 	// FX
 	Stage window;
-	//protected static ObservableList<Customer> customers;
+	protected static ObservableList<Customer> customers;
 	static Values values;
 	public TableView<TableDataCustomer> table;
-	private Scene scene;
 	private Scene scene2;
 	private Scene summScene;
 	private Text textForSumm;
-	//private String summarize;
-	//private StringBuilder buildSumm;
-	static ArrayList<TableDataCustomer> sortingForFX = new ArrayList<>();
- 
+	private String summarize;
+	private StringBuilder buildSumm;
+
 	///////////////////////////////////////////////////////////////
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -64,22 +63,22 @@ public class JavaMarketCKPTD extends Application {
 		// GridPane with 10px padding around edge
 
 		GridPane grid = new GridPane();
-		
-		
+
 		grid.setPadding(new Insets(30, 30, 30, 30));
 
 		grid.setVgap(8);
 
 		grid.setHgap(10);
-		grid.setMinSize(500, 500);
+		grid.setMinSize(400, 400);
 
+		// Name Label - constrains use (child, column, row)
 
 		Label numCust = new Label("Enter the number of customers");
 
 		GridPane.setConstraints(numCust, 0, 0);
 
 		TextField numInput = new TextField();
-		numInput.setPromptText("int");
+
 		GridPane.setConstraints(numInput, 1, 0);
 
 		Label minArBtwCust = new Label("Enter minimum Arrival time between customers");
@@ -87,7 +86,7 @@ public class JavaMarketCKPTD extends Application {
 		GridPane.setConstraints(minArBtwCust, 0, 1);
 
 		TextField minArBtwCustInput = new TextField();
-		minArBtwCustInput.setPromptText("int");
+
 		GridPane.setConstraints(minArBtwCustInput, 1, 1);
 
 		////////////////////////////////////////////////////////////
@@ -96,7 +95,7 @@ public class JavaMarketCKPTD extends Application {
 		GridPane.setConstraints(maxArBtwCust, 0, 2);
 
 		TextField maxArBtwCustInput = new TextField();
-		maxArBtwCustInput.setPromptText("int");
+
 		GridPane.setConstraints(maxArBtwCustInput, 1, 2);
 		////////////////////////////////////////////////////////////////////////
 		Label minSTime = new Label("Enter minimal service time");
@@ -104,7 +103,7 @@ public class JavaMarketCKPTD extends Application {
 		GridPane.setConstraints(minSTime, 0, 3);
 
 		TextField minSTimeInput = new TextField();
-		minSTimeInput.setPromptText("int");
+
 		GridPane.setConstraints(minSTimeInput, 1, 3);
 		// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		Label maxSTime = new Label("Enter maximum service time");
@@ -112,7 +111,7 @@ public class JavaMarketCKPTD extends Application {
 		GridPane.setConstraints(maxSTime, 0, 4);
 
 		TextField maxSTimeInput = new TextField();
-		maxSTimeInput.setPromptText("int");
+
 		GridPane.setConstraints(maxSTimeInput, 1, 4);
 		//////////////////////////////////////////////////////////
 		Label slowerForSelf = new Label("Enter percentage slower for self");
@@ -120,78 +119,69 @@ public class JavaMarketCKPTD extends Application {
 		GridPane.setConstraints(slowerForSelf, 0, 5);
 
 		TextField slowInput = new TextField();
-		slowInput.setPromptText("int or double");
+
 		GridPane.setConstraints(slowInput, 1, 5);
 
 		Label fullLineNum = new Label("How many Full Service Lines");
 		GridPane.setConstraints(fullLineNum, 0, 6);
 		TextField fullInput = new TextField();
-		fullInput.setPromptText("int");
 		GridPane.setConstraints(fullInput, 1, 6);
 		Label selfLineNum = new Label("How many Self Service Lines");
 		GridPane.setConstraints(selfLineNum, 0, 7);
 		TextField selfInput = new TextField();
-		selfInput.setPromptText("int");
 		GridPane.setConstraints(selfInput, 1, 7);
-		
+
 		Label opt = new Label("More Important satisfaction(1) or optimization(2)?");
 		GridPane.setConstraints(opt, 0, 8);
 		TextField optInput = new TextField();
-		optInput.setPromptText(" enter 1 or 2");
 		GridPane.setConstraints(optInput, 1, 8);
 		Label fullGoal = new Label("Min. Acceptable % of Satisfied Full Serv. Customers");
 		GridPane.setConstraints(fullGoal, 0, 9);
 		TextField fullGoalInput = new TextField();
-		fullGoalInput.setPromptText("int or double");
 		GridPane.setConstraints(fullGoalInput, 1, 9);
 
 		Label selfGoal = new Label("Min. Acceptable % of Satisfied Self Serv. Customers");
 		GridPane.setConstraints(selfGoal, 0, 10);
 		TextField selfGoalInput = new TextField();
-		selfGoalInput.setPromptText("int or double");
 		GridPane.setConstraints(selfGoalInput, 1, 10);
 		Label downTime = new Label("Maximum Acceptable % of Register Down Time?");
 		GridPane.setConstraints(downTime, 0, 11);
 		TextField downInput = new TextField();
-		downInput.setPromptText("int or double");
 		GridPane.setConstraints(downInput, 1, 11);
 
 		Button loginButton = new Button("Enter");
-		Text enter = new Text("Hit enter after your input to store data");
-		Text calc = new Text("Hit calculate after enter to run the program");
-		GridPane.setConstraints(enter,0,12);
-		GridPane.setConstraints(calc,0,13);
-		GridPane.setConstraints(loginButton, 1, 12);
+
+		GridPane.setConstraints(loginButton, 0, 12);
 		Button end = new Button("Calculate");
-		GridPane.setConstraints(end, 1, 13);
+		GridPane.setConstraints(end, 0, 13);
 		StackPane layout2 = new StackPane();
 
-		 scene = new Scene(grid, 500, 500);
+		Scene scene = new Scene(grid, 500, 500);
 		TableColumn<TableDataCustomer, Integer> custId = new TableColumn<>("CustId");
 
 		custId.setMinWidth(100);
 
 		custId.setCellValueFactory(new PropertyValueFactory<>("custId"));
 
-		TableColumn<TableDataCustomer, String> arrivalTime = new TableColumn<>("ArrivalTime");
+		TableColumn<TableDataCustomer, Integer> arrivalTime = new TableColumn<>("ArrivalTime");
 
 		arrivalTime.setMinWidth(100);
 
 		arrivalTime.setCellValueFactory(new PropertyValueFactory<>("ArrivalTime"));
 
-		TableColumn<TableDataCustomer, String> serviceTime = new TableColumn<>("Service Time");
+		TableColumn<TableDataCustomer, Integer> serviceTime = new TableColumn<>("Service Time");
 
 		serviceTime.setMinWidth(100);
 
 		serviceTime.setCellValueFactory(new PropertyValueFactory<>("ServiceTime"));
 
-		TableColumn<TableDataCustomer, String> waitTime = new TableColumn<>("WaitTime");
+		TableColumn<TableDataCustomer, Integer> waitTime = new TableColumn<>("WaitTime");
 
 		waitTime.setMinWidth(100);
 
 		waitTime.setCellValueFactory(new PropertyValueFactory<>("WaitTime"));
 
-		TableColumn<TableDataCustomer, String> taTime = new TableColumn<>("TurnaroundTime");
+		TableColumn<TableDataCustomer, Integer> taTime = new TableColumn<>("TurnaroundTime");
 
 		taTime.setMinWidth(100);
 
@@ -239,7 +229,7 @@ public class JavaMarketCKPTD extends Application {
 		grid.getChildren().addAll(numCust, numInput, minArBtwCust, minArBtwCustInput, loginButton, slowInput,
 				slowerForSelf, maxArBtwCust, maxArBtwCustInput, minSTime, minSTimeInput, maxSTime, maxSTimeInput, end,
 				fullLineNum, fullInput, selfLineNum, selfInput, opt, optInput, fullGoal, fullGoalInput, selfGoal,
-				selfGoalInput, downTime, downInput,enter,calc);
+				selfGoalInput, downTime, downInput);
 
 		loginButton.setOnAction(e -> dataStore(numInput, minArBtwCustInput, maxArBtwCustInput, minSTimeInput,
 				maxSTimeInput, slowInput, fullInput, selfInput, optInput, fullGoalInput, selfGoalInput, downInput));
@@ -401,11 +391,11 @@ public class JavaMarketCKPTD extends Application {
 		for(int j =0;j<oBCustsSelf.size();j++) {
 			oBCustsAll.add(oBCustsSelf.get(j));
 		}
-
+		ArrayList<TableDataCustomer> sortingForFX= new ArrayList<>();
 		for(int k =0;k<oBCustsAll.size();k++) {
 			sortingForFX.add(oBCustsAll.get(k));
 		}
-		Collections.sort(sortingForFX);	
+		Collections.sort(sortingForFX);
 		oBCustsAll.clear();
 		for(int y=0;y<sortingForFX.size();y++) {
 			oBCustsAll.add(sortingForFX.get(y));
@@ -413,13 +403,8 @@ public class JavaMarketCKPTD extends Application {
 		}
 		
 		
-		////////////////////////////////////////////////////////////////////////////
-		//DataBase
+		
 		table.setItems(oBCustsAll);
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//end of database
-		
 
 		//////////////////////////////////////////////////////////////////////////////
 
@@ -436,7 +421,6 @@ public class JavaMarketCKPTD extends Application {
 		//FX
 		BorderPane bp = new BorderPane();
 		Button filePrint = new Button("Print To a File");
-		
 		HBox topMenu = new HBox();
 		topMenu.setPadding(new Insets(10, 10, 10, 10));
 		Button exit = new Button("EXIT");
@@ -444,7 +428,6 @@ public class JavaMarketCKPTD extends Application {
 		filePrint.setOnAction(e -> wf.writeData());
 		goBack.setOnAction(e -> window.setScene(scene2));
 		exit.setOnAction(e -> window.close());
-		
 		goBack.setStyle("-fx-text-fill: blue");
 		exit.setStyle("-fx-text-fill: red");
 		filePrint.setStyle("-fx-text-fill: green");
@@ -547,27 +530,7 @@ public class JavaMarketCKPTD extends Application {
 	public static void main(String[] args) {
 		launch(args);
 
-		System.out.println("-!!!DATABASE Information!!!-");
-		System.out.println("\nDo you want to add your trials to a database? (y)es or (n)o?");
-		String a = scan.nextLine();
-
-		if(a.startsWith("n") || a.startsWith("N")) {
-			System.out.println("Goodbye");
-			System.exit(0);
-		}
-		else {
-			System.out.println("Creating the table!");
-			SQLUtilities.createTable(false);
-			
-			System.out.println();
-			
-			SQLUtilities.store(sortingForFX, false);
-			System.out.println("\n!D O N E!");
-			System.exit(0);
-		}
-
 	}
-			
 
 	public static String percentDownTime(int regdownTime, int timer, String line, int numLines, double perDownGoal) {
 		double perDown = (1.0 * regdownTime / numLines) / timer * 100;
@@ -597,7 +560,7 @@ public class JavaMarketCKPTD extends Application {
 		return "The average wait time was: " + df.format(avWaitTimeCalc) + " mins\n";
 	}
 
-	/*public static int[] inputData() {
+	public static int[] inputData() {
 		int[] data = new int[9];
 		System.out.println("Enter number of Customers to be served: ");
 		data[0] = scan.nextInt();
@@ -621,7 +584,6 @@ public class JavaMarketCKPTD extends Application {
 
 		return data;
 	}
-	*/
 
 	public static int smallest(ArrayList<Queue> checkouts) {
 		int count = 0;
@@ -642,14 +604,9 @@ public class JavaMarketCKPTD extends Application {
 		}
 	}
 
-	public  void dataStore(TextField numCust, TextField minArTime, TextField maxArTime, TextField minServT,
+	public static void dataStore(TextField numCust, TextField minArTime, TextField maxArTime, TextField minServT,
 			TextField maxServT, TextField percentage, TextField fullLine, TextField selfLine, TextField option,
 			TextField fullInput, TextField selfInput, TextField down) {
-		
-		
-		
-		/////////////////////////////////////////////////////////////////////////////////////////////////////
-		try {
 		int number = Integer.parseInt(numCust.getText());
 		int minArTimeBtw = Integer.parseInt(minArTime.getText());
 		int maxArTimeBtw = Integer.parseInt(maxArTime.getText());
@@ -662,71 +619,11 @@ public class JavaMarketCKPTD extends Application {
 		double fullOpt = Double.parseDouble(fullInput.getText());
 		double selfOpt = Double.parseDouble(selfInput.getText());
 		double downTime = Double.parseDouble(down.getText());
-		
 		Values newValue = new Values(number, minArTimeBtw, maxArTimeBtw, minSerTime, maxSerTime, slower, fullLineV,
 				selfLineV, options, fullOpt, selfOpt, downTime);
 		values = newValue;
-		if(options/2>1) {
-			optimizationError();
-		}
-		else if(options%2>0 && options/2>=1) {
-			optimizationError();
-		}
-			
-		
-			
 		
 
-		}catch(Exception e){
-			window.close();
-			
-			GridPane grid = new GridPane();
-			
-			
-			grid.setPadding(new Insets(30, 30, 30, 30));
-
-			grid.setVgap(8);
-
-			grid.setHgap(10);
-			grid.setMinSize(400, 400);
-			Text erMsg = new Text("You did not enter the requested information remember\n1.most values will have to be ints or doubles.\n2."
-					+ "optimization/satisifaction has to be 1 or 2\n3.try again! hit the button to retry");
-			
-			Button trys = new Button("Try Again");
-			trys.setOnAction(f->window.setScene(scene));
-			grid.setConstraints(erMsg,0,0);
-			grid.setConstraints(trys,2,4);
-			grid.getChildren().addAll(trys,erMsg);
-			Scene errorScene = new Scene(grid);
-			window.setScene(errorScene);
-			window.show();
-			
-			
-		}
-		
 	}
-		public void optimizationError() {
-			window.close();
-			
-			GridPane grid = new GridPane();
-			
-			
-			grid.setPadding(new Insets(30, 30, 30, 30));
 
-			grid.setVgap(8);
-
-			grid.setHgap(10);
-			grid.setMinSize(400, 400);
-			Text erMsg = new Text("You did not enter the requested information remember\n1.most values will have to be ints or doubles.\n2."
-					+ "optimization/satisifaction has to be 1 or 2\n3.try again! hit the button to retry");
-			
-			Button trys = new Button("Try Again");
-			trys.setOnAction(f->window.setScene(scene));
-			grid.setConstraints(erMsg,0,0);
-			grid.setConstraints(trys,2,4);
-			grid.getChildren().addAll(trys,erMsg);
-			Scene errorScene = new Scene(grid);
-			window.setScene(errorScene);
-			window.show();
-		}
-} 
+}
